@@ -1,35 +1,43 @@
 <style type="less">
-  .group {}
+.group {
+  margin-bottom: 10rpx;
+}
+.icon {
+  width: 50rpx;
+  height: 50rpx;
+  vertical-align: top;
+}
+.msg {
+  display: inline-block;
+  height: 50rpx;
+  line-height: 50rpx;
+  margin-left: 20rpx;
+}
 </style>
 <template>
   <view class="group">
-    <text class="id">{{grouplist.id}}. </text>
-    <text class="name" @tap="tap">{{grouplist.name}}</text>
-    <view>
-      <repeat for="{{grouplist.list}}" item="item">
-        <groupitem :gitem="item"></groupitem>
-      </repeat>
-    </view>
+    <image class="icon" src="{{grouplist.url}}">
+    <text class="msg" @tap="tap">{{grouplist.msg}}</text>
   </view>
 </template>
 <script>
-  import wepy from 'wepy'
-  import GroupItem from './groupitem'
+import wepy from 'wepy';
+import GroupItem from './groupitem';
 
-  export default class Group extends wepy.component {
-    props = {
-      grouplist: {},
-      index: {}
-    }
+export default class Group extends wepy.component {
+  props = {
+    grouplist: {},
+    index: {}
+  };
 
-    components = {
-      groupitem: GroupItem
+  components = {
+    groupitem: GroupItem
+  };
+  methods = {
+    tap() {
+      this.grouplist.name = `Parent Random(${Math.random()})`;
+      console.log(`Clicked Group ${this.$index}, ID is ${this.grouplist.id}`);
     }
-    methods = {
-      tap () {
-        this.grouplist.name = `Parent Random(${Math.random()})`
-        console.log(`Clicked Group ${this.$index}, ID is ${this.grouplist.id}`)
-      }
-    }
-  }
+  };
+}
 </script>
